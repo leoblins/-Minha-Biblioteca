@@ -7,3 +7,5 @@ db.sqlite3
 
 # Config local (não subir pro Git/Render)
 biblioteca_pai/settings_local.py
+/staticfiles/
+

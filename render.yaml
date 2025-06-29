@@ -1,9 +1,10 @@
-services:
-  - type: web
-    name: Minha-Biblioteca
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "./start.sh"
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: biblioteca_pai.settings
+#!/bin/bash
+
+# Aplica as migrações do banco
+python manage.py migrate --noinput
+
+# Coleta os arquivos estáticos
+python manage.py collectstatic --noinput
+
+# Inicia o servidor com Gunicorn apontando para o projeto Django corretamente
+gunicorn biblioteca_pai.wsgi:application --bind 0.0.0.0:8000
